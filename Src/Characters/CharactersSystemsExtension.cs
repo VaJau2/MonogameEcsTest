@@ -10,12 +10,10 @@ public static class CharactersSystemsExtension
 {
     public static WorldBuilder AddCharacterSystems(this WorldBuilder world, ContentManager content)
     {
-        world.AddSystem(new SpawningCharactersSystem(content))
+        return world.AddSystem(new SpawningCharactersSystem(content))
             .AddSystem(new MovingSystem())
             .AddSystem(new BotsSystem())
             .AddSystem(new BotsTargetSystem())
             .AddSystem(new TargetsColoringSystem());
-
-        return world;
     }
 }
