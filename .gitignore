@@ -33,6 +33,9 @@ obj/
 [Rr]elease*/
 Ankh.NoLoad
 
+# JetBrains Rider
+.idea/
+
 #Tooling
 _ReSharper*/
 *.resharper
