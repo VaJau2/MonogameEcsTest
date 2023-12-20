@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MonoEcsTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef73ec469c4562631831c749bcfc428278280685")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonoEcsTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonoEcsTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

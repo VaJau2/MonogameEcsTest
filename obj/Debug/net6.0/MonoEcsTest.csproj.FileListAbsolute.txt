@@ -23,3 +23,7 @@ D:\Projects\MonoEcsTest\obj\Debug\net6.0\refint\MonoEcsTest.dll
 D:\Projects\MonoEcsTest\obj\Debug\net6.0\MonoEcsTest.pdb
 D:\Projects\MonoEcsTest\obj\Debug\net6.0\MonoEcsTest.genruntimeconfig.cache
 D:\Projects\MonoEcsTest\obj\Debug\net6.0\ref\MonoEcsTest.dll
+D:\Projects\MonoEcsTest\bin\Debug\net6.0\MonoGame.Extended.dll
+D:\Projects\MonoEcsTest\bin\Debug\net6.0\MonoGame.Extended.Entities.dll
+D:\Projects\MonoEcsTest\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\Projects\MonoEcsTest\bin\Debug\net6.0\Content\sprites\skeleton.xnb
