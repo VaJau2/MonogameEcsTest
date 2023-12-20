@@ -1,10 +1,11 @@
-﻿using MonoGame.Extended;
+﻿using System.Collections.Generic;
+using System.Linq;
+using MonoGame.Extended;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Entities.Systems;
-
 
 namespace MonoEcsTest.Rendering;
 
@@ -35,16 +36,19 @@ public class RenderSystem: EntityDrawSystem
         
         spriteBatch.Begin();
 
-        foreach (var entity in ActiveEntities)
+        foreach (var entity in YSortedEntities)
         {
             var transform = transformMapper.Get(entity);
             var sprite = spriteMapper.Get(entity);
             
-            //spriteBatch.Begin();
             spriteBatch.Draw(sprite, transform);
-            //spriteBatch.End();
         }
 
         spriteBatch.End();
+    }
+
+    private IEnumerable<int> YSortedEntities
+    {
+        get { return ActiveEntities.OrderBy(entityId => transformMapper.Get(entityId).Position.Y).ToArray(); }
     }
 }
