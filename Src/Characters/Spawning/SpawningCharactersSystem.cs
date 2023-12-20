@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoEcsTest.Characters.Destroying;
+using MonoEcsTest.Characters.Moving;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
@@ -8,7 +10,7 @@ using MonoGame.Extended.Sprites;
 
 namespace MonoEcsTest.Characters.Spawning;
 
-public class SpawningCharactersSystem: EntityUpdateSystem
+public class SpawningCharactersSystem: EntityProcessingSystem
 {
     private readonly Texture2D skeletonSprite;
 
@@ -32,43 +34,42 @@ public class SpawningCharactersSystem: EntityUpdateSystem
     {
         CreateSkeleton(new Vector2(200, 200))
             .Attach(new Player());
-
-        CreateSkeleton(new Vector2(300, 300), Color.Blue);
-        CreateSkeleton(new Vector2(360, 300), Color.Red);
+        
+        CreateSkeleton(new Vector2(360, 300), Color.Red, 3)
+            .Attach(new Bot());
     }
 
-    public override void Update(GameTime gameTime)
+    public override void Process(GameTime gameTime, int entityId)
     {
-        foreach (var entityId in ActiveEntities)
+        var spawning = spawningMapper.Get(entityId);
+            
+        if (spawning.isSpawned)
         {
-            var spawning = spawningMapper.Get(entityId);
-            
-            if (spawning.isSpawned)
+            if (spawning.cooldown > 0)
             {
-                if (spawning.cooldown > 0)
-                {
-                    spawning.cooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                }
-                else
-                {
-                    GetEntity(entityId).Detach<Spawning>();
-                }
-                
-                continue;
+                spawning.cooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            
-            var transform = transformMapper.Get(entityId);
-            CreateSkeleton(transform.Position, Color.Green);
-            spawning.isSpawned = true;
-            spawning.cooldown = Spawning.DEFAULT_COOLDOWN;
+            else
+            {
+                spawningMapper.Delete(entityId);
+            }
+                
+            return;
         }
+            
+        var transform = transformMapper.Get(entityId);
+        CreateSkeleton(transform.Position, Color.Green)
+            .Attach(new Target());
+            
+        spawning.isSpawned = true;
+        spawning.cooldown = Spawning.DEFAULT_COOLDOWN;
     }
 
-    private Entity CreateSkeleton(Vector2 pos, Color color = default)
+    private Entity CreateSkeleton(Vector2 pos, Color color = default, int speed = default)
     {
         var skeleton = CreateEntity();
         skeleton.Attach(new Transform2(pos));
-        skeleton.Attach(new Movable());
+        skeleton.Attach(speed > 0 ? new Movable(speed) : new Movable());
 
         var sprite = new Sprite(skeletonSprite);
         if (color != default)

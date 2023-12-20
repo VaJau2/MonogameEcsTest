@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoEcsTest.Characters;
-using MonoEcsTest.Characters.Spawning;
 using MonoEcsTest.Controls;
 using MonoEcsTest.Rendering;
 using MonoGame.Extended.Entities;
@@ -23,9 +22,8 @@ public class Game1 : Game
         world = new WorldBuilder()
             .AddSystem(new GameControlsSystem(this))
             .AddSystem(new RenderSystem(GraphicsDevice))
-            .AddSystem(new SpawningCharactersSystem(Content))
             .AddSystem(new PlayerInputSystem())
-            .AddSystem(new MovingSystem())
+            .AddCharacterSystems(Content)
             .Build();
 
         Components.Add(world);

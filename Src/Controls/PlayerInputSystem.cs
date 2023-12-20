@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoEcsTest.Characters;
+using MonoEcsTest.Characters.Moving;
 using MonoEcsTest.Characters.Spawning;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 
 namespace MonoEcsTest.Controls;
 
-public class PlayerInputSystem: EntityUpdateSystem
+public class PlayerInputSystem: EntityProcessingSystem
 {
     private ComponentMapper<Movable> movableMapper;
     private ComponentMapper<Spawning> spawningMapper;
@@ -23,17 +24,14 @@ public class PlayerInputSystem: EntityUpdateSystem
         spawningMapper = mapperService.GetMapper<Spawning>();
     }
 
-    public override void Update(GameTime gameTime)
+    public override void Process(GameTime gameTime, int entityId)
     {
-        foreach (var entityId in ActiveEntities)
-        {
-            var movable = movableMapper.Get(entityId);
-            movable.velocity = GetInput() * movable.speed;
+        var movable = movableMapper.Get(entityId);
+        movable.velocity = GetInput() * movable.speed;
 
-            if (MaySpawn(entityId) && Keyboard.GetState().IsKeyDown(Keys.LeftShift))
-            {
-                GetEntity(entityId).Attach(new Spawning());
-            }
+        if (MaySpawn(entityId) && Keyboard.GetState().IsKeyDown(Keys.Space))
+        {
+            spawningMapper.Put(entityId, new Spawning());
         }
     }
 

@@ -2,7 +2,7 @@
 
 public class Spawning
 {
-    public const int DEFAULT_COOLDOWN = 1;
+    public const float DEFAULT_COOLDOWN = 0.5f;
     
     public bool isSpawned;
     public float cooldown;
