@@ -8,7 +8,7 @@ namespace MonoEcsTest;
 
 public class Game1 : Game
 {
-    private World _world;
+    private World world;
 
     public Game1()
     {
@@ -19,13 +19,13 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        _world = new WorldBuilder()
+        world = new WorldBuilder()
             .AddSystem(new GameControlsSystem(this))
             .AddSystem(new RenderSystem(GraphicsDevice))
             .AddSystem(new CreateEntitiesSystem(Content))
             .Build();
 
-        Components.Add(_world);
+        Components.Add(world);
         base.Initialize();
     }
 }
