@@ -8,16 +8,16 @@ namespace MonoEcsTest.Characters.Destroying;
 public class TargetsColoringSystem: EntityProcessingSystem
 {
     private ComponentMapper<Target> targetMapper;
-    private ComponentMapper<Sprite> spriteManager;
+    private ComponentMapper<AnimatedSprite> spriteManager;
     
-    public TargetsColoringSystem() : base(Aspect.All(typeof(Target), typeof(Sprite)))
+    public TargetsColoringSystem() : base(Aspect.All(typeof(Target), typeof(AnimatedSprite)))
     {
     }
 
     public override void Initialize(IComponentMapperService mapperService)
     {
         targetMapper = mapperService.GetMapper<Target>();
-        spriteManager = mapperService.GetMapper<Sprite>();
+        spriteManager = mapperService.GetMapper<AnimatedSprite>();
     }
 
     public override void Process(GameTime gameTime, int entityId)

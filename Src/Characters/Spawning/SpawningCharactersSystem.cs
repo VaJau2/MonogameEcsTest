@@ -1,25 +1,26 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using MonoEcsTest.Characters.Destroying;
 using MonoEcsTest.Characters.Moving;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
+using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
+using MonoGame.Extended.Content;
 
 namespace MonoEcsTest.Characters.Spawning;
 
 public class SpawningCharactersSystem: EntityProcessingSystem
 {
-    private readonly Texture2D skeletonSprite;
+    private readonly SpriteSheet skeletonSpriteSheet;
 
     private ComponentMapper<Transform2> transformMapper;
     private ComponentMapper<Spawning> spawningMapper;
     
     public SpawningCharactersSystem(ContentManager content) : base(Aspect.All(typeof(Spawning)))
     {
-        skeletonSprite = content.Load<Texture2D>("sprites/skeleton");
+        skeletonSpriteSheet = content.Load<SpriteSheet>("sprites/anim.sf", new JsonContentLoader());
     }
 
     public override void Initialize(IComponentMapperService mapperService)
@@ -71,7 +72,9 @@ public class SpawningCharactersSystem: EntityProcessingSystem
         skeleton.Attach(new Transform2(pos));
         skeleton.Attach(speed > 0 ? new Movable(speed) : new Movable());
 
-        var sprite = new Sprite(skeletonSprite);
+        var sprite = new AnimatedSprite(skeletonSpriteSheet);
+        sprite.Play("idle");
+        
         if (color != default)
         {
             sprite.Color = color;

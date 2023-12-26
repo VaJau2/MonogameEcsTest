@@ -15,10 +15,10 @@ public class RenderSystem: EntityDrawSystem
     private readonly SpriteBatch spriteBatch;
     
     private ComponentMapper<Transform2> transformMapper;
-    private ComponentMapper<Sprite> spriteMapper;
+    private ComponentMapper<AnimatedSprite> spriteMapper;
     
     public RenderSystem(GraphicsDevice graphicsDevice) 
-        : base(Aspect.All(typeof(Sprite), typeof(Transform2)))
+        : base(Aspect.All(typeof(AnimatedSprite), typeof(Transform2)))
     {
         this.graphicsDevice = graphicsDevice;
         spriteBatch = new SpriteBatch(graphicsDevice);
@@ -27,7 +27,7 @@ public class RenderSystem: EntityDrawSystem
     public override void Initialize(IComponentMapperService mapperService)
     {
         transformMapper = mapperService.GetMapper<Transform2>();
-        spriteMapper = mapperService.GetMapper<Sprite>();
+        spriteMapper = mapperService.GetMapper<AnimatedSprite>();
     }
 
     public override void Draw(GameTime gameTime)

@@ -12,6 +12,7 @@ public static class CharactersSystemsExtension
     {
         return world.AddSystem(new SpawningCharactersSystem(content))
             .AddSystem(new MovingSystem())
+            .AddSystem(new MovableAnimationSystem())
             .AddSystem(new BotsSystem())
             .AddSystem(new BotsTargetSystem())
             .AddSystem(new TargetsColoringSystem());

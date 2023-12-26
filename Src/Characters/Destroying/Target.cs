@@ -9,11 +9,11 @@ public class Target
     {
         { 0, Color.Green },
         { 1f, Color.Lime },
-        { 2f, Color.Chartreuse },
-        { 3f, Color.LawnGreen },
-        { 4f, Color.SpringGreen },
-        { 5f, Color.Aquamarine },
-        { 6f, Color.White }
+        { 1.5f, Color.Chartreuse },
+        { 2f, Color.LawnGreen },
+        { 2.5f, Color.SpringGreen },
+        { 3f, Color.Aquamarine },
+        { 4f, Color.White }
     };
 
     public float livingTime;
